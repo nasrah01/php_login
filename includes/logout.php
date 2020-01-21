@@ -1,7 +1,4 @@
 <?php
-/* REFERENCE: this code was taken from session 8 slides on Sessions slide 18 'destroying a session' 
-   When the user logs out the user will be redirected to index.php with a message confirming they have been logged out
-*/
 if(isset($_POST['logout'])) {
     $_SESSION = array();
     if(ini_get("session.use_cookies")) {

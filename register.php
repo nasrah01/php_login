@@ -1,20 +1,11 @@
 <?php
 session_start();
 require_once 'includes/functions.php';
-/*
-    1) admin_access is the function that will verify if a user is admin this page will be visable 
-    otherwise a logged out user or a logged in user that doesnt have admin privilege will be redirected to the login page or a message will display to prompt admin login
-    2) secure_links ensures the page uses https protocol securing data transfers
-*/
 admin_access($_SESSION['user'], 'admin', '?restricted=login');
 secure_links();
 require_once 'includes/logout.php'; 
+
 $self = outgoing($_SERVER['PHP_SELF']);
-/* 
-    1) Booleans and arrays for the first part of the validation delared
-    2) This section will check if each field conforms to the criteria set if they do it will be pushed into $input_valid array
-    3) At this stage of the validation if there are any errors $error_found will equal true and the error is pushed into $input_error array
- */
 $submitted_form = false;
 $error_found = false;
 $input_valid = array();
@@ -76,13 +67,7 @@ if(isset($_POST['submit'])) {
             $input_error['email'] = '*Email is not valid';
         }
     }
-    /* 
-        1) The first part checks if firstname and surname combination have been registered, if so the conditional statement will evaluate $existing_user as true
-        2) email is unique so if the email exists on file then the user is already registered 
-        2) Username is checked because most systems do not allow the same user name to be taken by multiple users
-        3)strcasecmp function is used to remove case sensitivity when comparing user input to existing users 
-        4) staffing.php is saved in a varaible, if the filename needs to be changed it is only changed within this variable rather than looking for all occurances 
-     */
+
     $existing_user = false;
     $user_error = array();
     $staff_file = '../fma/staffing.php';
@@ -119,15 +104,7 @@ if(isset($_POST['submit'])) {
         }
     }
 }
-/* 
-    If no errors are found in the $user_error() and $input_error() the two boolean checks will be false and validation complete
-    If the validation is complete this section checks if staffing.php file exists and is writable if it is store_users function will write the data into file
-    If either or both boolean checks are true the else part of this conditional statement will redisplay the form to include the error messages for any input fields with errors
-    If an input field has no errors it is redisplayed with the users input
-    system_error() function is used when there are any errors opening the file
-    outgoing() is the function that escapes the data being redisplayed to the user and the errors being displayed
 
-*/
 if($submitted_form === true && $error_found === false && $existing_user === false) {
     if(is_file($staff_file) && is_writable($staff_file)) {
         store_users($staff_file, $input_valid, 'message=registered');
@@ -205,10 +182,6 @@ if($submitted_form === true && $error_found === false && $existing_user === fals
             include 'includes/nav.php';
         ?>
         <h2>New Staff Registration</h2> 
-        <!--
-            These three spans will highlight to the user if there are any errors found
-            If not error is found the form will reset and the user will be shown a message to confirm a new user has been registered
-        -->
         <span class="highlight"><p><?php echo (!empty($input_error)) ? outgoing('*Please correct the hightlighted parts of the form') : ' ' ?></p></span>
         <span class="highlight"><p><?php echo (!empty($user_error)) ? outgoing('*The highlighted user information has already been registered') : ' ' ?></p></span>
         <span>
