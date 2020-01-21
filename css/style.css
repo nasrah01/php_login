@@ -1,0 +1,74 @@
+/* results table code from fma resources pack*/
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.heading {
+    border-bottom: 1px solid grey;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-row-gap: 1.5rem;
+}
+
+.login {
+    grid-column: 2/ -1;
+    justify-self: center;
+    align-self: center;
+}
+
+.title {
+    grid-column: 1/ 2;
+}
+
+.title h1, .title h4 {
+    padding: 0;
+    margin: 0;
+    color: darkred;
+}
+
+main h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+main {
+    margin: 0 30px;
+}
+
+.highlight {
+    color: red;
+}
+
+form div {
+    padding: 2px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title h1, .title h4 {
+    padding: 0;
+    margin: 0;
+    color: darkred;
+}
