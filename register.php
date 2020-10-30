@@ -19,7 +19,7 @@ if(isset($_POST['submit'])) {
             $input_valid['username'] = $filter_user;
         } else {
             $error_found = true;
-            $input_error['username'] = '*Username should be at least 6 characters, and only include letters and numbers';
+            $input_error['username'] = '*At least 6 characters, and only include letters and numbers';
         }
     }
     if(isset($_POST['password'])) {
@@ -28,7 +28,7 @@ if(isset($_POST['submit'])) {
             $input_valid['password'] = $filter_pass;
         } else {
             $error_found = true;
-            $input_error['password'] = '*Password must have at least 8 characters and can contain letters and numbers';
+            $input_error['password'] = '*At least 8 characters and can contain letters and numbers';
         }
     }
     if(isset($_POST['title'])) {
@@ -78,19 +78,12 @@ if(isset($_POST['submit'])) {
     } else {
         system_error('message=error');
     }
-    foreach($current_users as $user) {
+  /*   foreach($current_users as $user) {
         $splt_line = explode(',' , $user);
-        $fname = trim($splt_line[3]);
-        $sname = trim($splt_line[4]);
         $usernames = trim($splt_line[0]);
         $check_email = trim($splt_line[5]);
 
-        if(isset($input_valid['firstname'])) {
-            if(strcasecmp($fname, $input_valid['firstname']) == 0 && strcasecmp($sname, $input_valid['surname']) == 0) {
-                $existing_user = true;
-                $user_error['fullname'] = '*' . $input_valid['firstname'] . ' ' . $input_valid['surname'] .  ' has already been registered';
-            }
-        }
+        
         if(strcasecmp($input_valid['email'], $check_email) == 0) {
             $existing_user = true;
             $user_error['email'] = '*Email has already been registered';
@@ -102,7 +95,7 @@ if(isset($_POST['submit'])) {
 
             }
         }
-    }
+    } */
 }
 
 if($submitted_form === true && $error_found === false && $existing_user === false) {
@@ -167,84 +160,104 @@ if($submitted_form === true && $error_found === false && $existing_user === fals
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Staff Registration</title>
+    <link rel="icon" type="image/png" href="https://titan.dcs.bbk.ac.uk/~nabrah01/intranet/assets/favicon.png">
+    <title>Admin - Staff Registration</title>
 </head>
 <body>
-    <header>
-    <div class = "heading">
-    <?php
-        include_once 'includes/header.php';
-    ?>
-    </div>
-    </header>
-    <main>
+    <div class="container">
+        <header>
+        <div class = "heading">
         <?php
-            include 'includes/nav.php';
+            include_once 'includes/header.php';
         ?>
-        <h2>New Staff Registration</h2> 
-        <span class="highlight"><p><?php echo (!empty($input_error)) ? outgoing('*Please correct the hightlighted parts of the form') : ' ' ?></p></span>
-        <span class="highlight"><p><?php echo (!empty($user_error)) ? outgoing('*The highlighted user information has already been registered') : ' ' ?></p></span>
-        <span>
-        <?php
-            if(parameters('message', 'error')) {
-                echo  '<p class= "highlight"> *System Error please try again later</p>';;
-            } 
-            if(parameters('message', 'registered')) {
-                echo '<h4>Thank you! New staff member has been successfully registered.</h4>';
-            } 
-        ?>
-        </span>
-        <form action="<?php echo $self ?>" method="POST">
-            <fieldset>
-                <div>
-                    <label for="title">Title</label>
-                    <select name="title" id="title">
-                        <option value="mr" <?php if($correct_ttl == 'mr') {echo ("selected");} ?>>Mr</option>
-                        <option value="ms" <?php if($correct_ttl == 'ms') {echo ("selected");} ?>>Ms</option>
-                        <option value="miss" <?php if($correct_ttl == 'miss') {echo ("selected");} ?>>Miss</option>
-                        <option value="mrs" <?php if($correct_ttl == 'mrs') {echo ("selected"); }?>>Mrs</option>
-                        <option value="dr" <?php if($correct_ttl == 'dr') {echo ("selected");} ?>>Dr</option>
-                    </select>
-                    <span class="highlight"><?php echo (isset($input_error['title'])) ? outgoing($input_error['title']) : ' ';?></span>
-                </div>
-                <div>
-                    <label for="fname">Firstname</label>
-                    <input type="text" name="fname" id="fname" value="<?php echo $correct_fname ?>">
-                    <span class="highlight"><?php echo (isset($input_error['firstname'])) ? outgoing($input_error['firstname']) : ' ';?></span>
-                </div>
-                <div>
-                    <label for="sname">Surname</label>
-                    <input type="text" name="sname" id="sname" value="<?php echo $correct_sname ?>">
-                    <span class="highlight"><?php echo (isset($input_error['surname'])) ? outgoing($input_error['surname']) : ' ';?></span>
-                    <span class="highlight"><?php echo $name_taken; ?></span>
-                </div>
-                <div>
-                    <label for="email">E-mail</label>
-                    <input type="text" name="email" id="email" value="<?php echo $correct_email ?>">
-                    <span class="highlight"><?php echo (isset($input_error['email'])) ? outgoing($input_error['email']) : ' ';?></span>
-                    <span class="highlight"><?php echo $email_taken; ?></span>
-                </div>
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" value="<?php echo $correct_uname; ?>">
-                    <span class="highlight"><?php echo (isset($input_error['username'])) ? outgoing($input_error['username']) : ' ';?></span>
-                    <span class="highlight"><?php echo $username_taken; ?></span>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="text" name="password" id="password">
-                    <span class="highlight"><?php echo (isset($input_error['password'])) ? outgoing($input_error['password']) : ' ';?></span>
-                </div>
-                <div>
-                   <input type="submit" name="submit" value="Create New User"> 
-                </div>
-            </fieldset>
-        </form>
+        </div>
+        </header>
+        <div class="main register__page">
+            <div class="main__nav">
+                <?php
+                    include 'includes/nav.php';
+                ?>
+            </div>
+            <div class="register__content">
+                <h2>New Staff Registration</h2> 
+                <form action="<?php echo $self ?>" method="POST">
+                    <fieldset>
+                        <div class="error__field">
+                            <span class="form__error"><p><?php echo (!empty($input_error)) ? outgoing('*Please correct the hightlighted parts of the form') : ' ' ?></p></span>
+                            <span class="form__error"><p><?php echo (!empty($user_error)) ? outgoing('*The highlighted user information has already been registered') : ' ' ?></p></span>
+                            <span>
+                            <?php
+                                if(parameters('message', 'error')) {
+                                    echo  '<p class= "highlight"> *System Error please try again later</p>';;
+                                } 
+                                if(parameters('message', 'registered')) {
+                                    echo '<h4>Thank you! New staff member has been successfully registered.</h4>';
+                                } 
+                            ?>
+                            </span>
+                        </div>
+                        <div class="box">
+                            <label for="title" class="left">Title</label>
+                            <select name="title" id="title">
+                                <option value="mr" <?php if($correct_ttl == 'mr') {echo ("selected");} ?>>Mr</option>
+                                <option value="ms" <?php if($correct_ttl == 'ms') {echo ("selected");} ?>>Ms</option>
+                                <option value="miss" <?php if($correct_ttl == 'miss') {echo ("selected");} ?>>Miss</option>
+                                <option value="mrs" <?php if($correct_ttl == 'mrs') {echo ("selected"); }?>>Mrs</option>
+                                <option value="dr" <?php if($correct_ttl == 'dr') {echo ("selected");} ?>>Dr</option>
+                            </select>
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['title'])) ? outgoing($input_error['title']) : ' ';?></span>
+                        </div>
+                        <div class="box">
+                            <label for="fname" class="left">Firstname</label>
+                            <input type="text" name="fname" id="fname" value="<?php echo $correct_fname ?>">
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['firstname'])) ? outgoing($input_error['firstname']) : ' ';?></span>
+                        </div>
+                        <div class="box">
+                            <label for="sname" class="left">Surname</label>
+                            <input type="text" name="sname" id="sname" value="<?php echo $correct_sname ?>">
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['surname'])) ? outgoing($input_error['surname']) : ' ';?></span>
+                            <span class="form__error"><?php echo $name_taken; ?></span>
+                        </div>
+                        <div class="box">
+                            <label for="email" class="left">E-mail</label>
+                            <input type="text" name="email" id="email" value="<?php echo $correct_email ?>">
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['email'])) ? outgoing($input_error['email']) : ' ';?></span>
+                            <span class="form__error"><?php echo $email_taken; ?></span>
+                        </div>
+                        <div class="box">
+                            <label for="username" class="left">Username</label>
+                            <input type="text" name="username" id="username" value="<?php echo $correct_uname; ?>">
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['username'])) ? outgoing($input_error['username']) : ' ';?></span>
+                            <span class="form__error"><?php echo $username_taken; ?></span>
+                        </div>
+                        <div class="box">
+                            <label for="password" class="left">Password</label>
+                            <input type="text" name="password" id="password">
+                            <br/>
+                            <span class="form__error"><?php echo (isset($input_error['password'])) ? outgoing($input_error['password']) : ' ';?></span>
+                        </div>
+                        <div>
+                        <input type="submit" name="submit" value="Create New User"> 
+                        </div>
+                    </fieldset>
+                </form>
 
-<?php
-// closing else statement where errors are found
-}
-?>
-    </main>
+                <?php
+                // closing else statement where errors are found
+                }
+                ?>
+            </div>
+        </div>
+        <footer class="footer">
+        <?php
+            include_once 'includes/footer.php'; 
+        ?>
+        </footer>
+    </div>
 </body>
 </html>

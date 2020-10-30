@@ -1,30 +1,24 @@
 <?php
-$site_title = '<div class="title"><a href="index.php">
-<h1>Birkbeck</h1>
-<h4>UNIVERISTY OF LONDON</h4>
-</a></div>';
+$site_title = '<a href="index.php" class="heading__title">
+<img src="https://titan.dcs.bbk.ac.uk/~nabrah01/intranet/assets/bbklogo.jpg" alt="birkbeck logo" />
+</a>
+<h1 class="heading__name"><span>Department of</span> <br> Computer Science and Information Systems</h1>
+';
+
 echo $site_title;
 
-$self = outgoing($_SERVER['PHP_SELF']);
-$logout_button = '<form action=' .$self. ' method="POST">
-    <div>
-        <input type="submit" name="logout" value="Log Out">
-    </div>
-</form>';
-
-$staff_links = array(
-    'SIGN IN' => 'login.php'
-);
-
 if(isset($_SESSION['user'])) {
-    echo '<div class="login"><h2>' . strtolower($_SESSION['user']) . '</h2>' . $logout_button . '</div>';
+    echo '<div class="heading__login"><h2 class="login__name">' . ucfirst(strtolower($_SESSION['user'])) . '</h2></div>';
 }  else {
-    echo '<nav class="login">' . create_list($staff_links) . '</nav>';
+    echo '<div class="heading__login"><a href="login.php"><li class="login__name">Log In</li>
+    <svg class="login__icon">
+    <use xlink:href="https://titan.dcs.bbk.ac.uk/~nabrah01/intranet/assets/sprite.svg#icon-log-in"></use>
+    </svg></a></div>';
 }
 if(parameters('intranet', 'login')) {
-    echo '<p class="highlight login">Please login to access the Department of Computer Science Intranet</p>';
+    echo '<p class="highlight login">Please login to access DCSIS Intranet</p>';
 } 
 if(parameters('restricted', 'login')) {
-    echo '<p class="highlight login">Please login as an administrator for access</p>';
+    echo '<p class="highlight login">Please login with administrator credentials</p>';
 }
 ?>

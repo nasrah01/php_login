@@ -121,20 +121,29 @@ if($submitted_login === true && $verified_user === true) {
         $self = outgoing($_SERVER['PHP_SELF']);
         $login_form =  '<form action=' .$self. ' method="POST">
         <fieldset>
-            <div>
+            <div class="form__heading--large">
+                <label>Birkbeck Portal</label>
+            </div>
+            <div class="form__heading--small">
+                <label>Sign In</label>
+            </div>
+            <div class="form__inputs">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="' . $username_correct . '' . $username_filled . '">
                 <span class="highlight">' . $error_user_message . '</span>
             </div>
-            <div>
+            <div class="form__inputs">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
                 <span class="highlight">' . $error_pass_message . '</span>
                 <span class="highlight">' . $incorrect_pass . '</span>
             </div>
-            <div>
-                <input type="submit" name="submit" value="login">
+            <div class="form__submit">
+                <input type="submit" name="submit" value="log in">
                 <span class="highlight">' . $incorrect_user . '</span>
+            </div>
+            <div class="form__ending">
+                <label>Portal for students and faculty of this department</label>
             </div>
         </fieldset>
     </form>';
@@ -147,25 +156,38 @@ if($submitted_login === true && $verified_user === true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="https://titan.dcs.bbk.ac.uk/~nabrah01/intranet/assets/favicon.png">
+    <title>Login - Department of Computer Science</title>
 </head>
 <body>
-    <header>
-    <div class = "heading">
-    <?php
-        include_once 'includes/header.php';   
-    ?>
-    </div>
-    </header>
-    <?php
-        if(isset($_SESSION['user'])) {
-            include 'includes/nav.php';
+    <div class="container login__container">
+        <header>
+        <div class = "heading login__page--heading">
+        <?php
+            include_once 'includes/header.php';   
+        ?>
+        </div>
+        </header>
+        <div class="main login__page">
+            
+        <?php
+            if(isset($_SESSION['user'])) {
+                echo '<div class="main__nav">';
+                include 'includes/nav.php';
+                echo '</div>';
+            }
+            echo $login_form;
+            if(parameters('message', 'error')) {
+                echo  '<p class= "highlight"> *System Error please try again later</p>';;
+            }  
         }
-        echo $login_form;
-        if(parameters('message', 'error')) {
-            echo  '<p class= "highlight"> *System Error please try again later</p>';;
-        }  
-}
-    ?>
+        ?>
+        </div>
+        <footer class="footer">
+        <?php
+            include_once 'includes/footer.php'; 
+        ?>
+        </footer>
+    </div>
 </body>
 </html>

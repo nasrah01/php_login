@@ -111,8 +111,8 @@ function secure_links() {
     }
 }
 
-function create_list($list_arr) {
-    $intranet_nav = '<ul>' . PHP_EOL;
+function create_list($list_arr, $class) {
+    $intranet_nav = '<ul '. $class . '>' . PHP_EOL;
     foreach ($list_arr as $name => $link) {
         $intranet_nav .= '<li><a href="' . $link . '">' . $name . '</a></li>' . PHP_EOL;
     }
