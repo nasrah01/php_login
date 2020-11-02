@@ -7,6 +7,12 @@ $nav_links= array(
     'Problem Solving' => 'pfp.php'
 );
 
+$hamburger = '<div class="menu__btn">
+            <div class="navigation__line navigation__one"></div>
+            <div class="navigation__line navigation__two"></div>
+            <div class="navigation__line navigation__three"></div>
+        </div>';
+
 $admin_links = array(
     'Administrator' => 'register.php'
 );
@@ -17,7 +23,11 @@ $logout_button = '<div class="logout__btn">
         <input type="submit" name="logout" value="Log Out">
         </form></div>';
 
-echo create_list($nav_links, "class='navigate nav'") ;
+echo $hamburger;
+
+echo create_list($nav_links, "class='navigate nav'");
+
+echo create_list($nav_links, "class='navigate__mobile nav'");
 
 echo create_list($admin_links, "class='admin__btn nav'");
 

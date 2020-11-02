@@ -189,5 +189,7 @@ if($submitted_login === true && $verified_user === true) {
         ?>
         </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

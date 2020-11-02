@@ -173,84 +173,95 @@ if($submitted_form === true && $error_found === false && $existing_user === fals
         </div>
         </header>
         <div class="main register__page">
-            <div class="main__nav">
-                <?php
-                    include 'includes/nav.php';
-                ?>
-            </div>
+            <?php
+            if(isset($_SESSION['user'])) {
+                echo '<div class="main__nav register__nav">';
+                include 'includes/nav.php';
+                echo '</div>';
+            }
+            ?>
             <div class="register__content">
-                <h2>New Staff Registration</h2> 
-                <form action="<?php echo $self ?>" method="POST">
-                    <fieldset>
-                        <div class="error__field">
-                            <span class="form__error"><p><?php echo (!empty($input_error)) ? outgoing('*Please correct the hightlighted parts of the form') : ' ' ?></p></span>
-                            <span class="form__error"><p><?php echo (!empty($user_error)) ? outgoing('*The highlighted user information has already been registered') : ' ' ?></p></span>
-                            <span>
-                            <?php
-                                if(parameters('message', 'error')) {
-                                    echo  '<p class= "highlight"> *System Error please try again later</p>';;
-                                } 
-                                if(parameters('message', 'registered')) {
-                                    echo '<h4>Thank you! New staff member has been successfully registered.</h4>';
-                                } 
-                            ?>
-                            </span>
-                        </div>
-                        <div class="box">
-                            <label for="title" class="left">Title</label>
-                            <select name="title" id="title">
-                                <option value="mr" <?php if($correct_ttl == 'mr') {echo ("selected");} ?>>Mr</option>
-                                <option value="ms" <?php if($correct_ttl == 'ms') {echo ("selected");} ?>>Ms</option>
-                                <option value="miss" <?php if($correct_ttl == 'miss') {echo ("selected");} ?>>Miss</option>
-                                <option value="mrs" <?php if($correct_ttl == 'mrs') {echo ("selected"); }?>>Mrs</option>
-                                <option value="dr" <?php if($correct_ttl == 'dr') {echo ("selected");} ?>>Dr</option>
-                            </select>
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['title'])) ? outgoing($input_error['title']) : ' ';?></span>
-                        </div>
-                        <div class="box">
-                            <label for="fname" class="left">Firstname</label>
-                            <input type="text" name="fname" id="fname" value="<?php echo $correct_fname ?>">
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['firstname'])) ? outgoing($input_error['firstname']) : ' ';?></span>
-                        </div>
-                        <div class="box">
-                            <label for="sname" class="left">Surname</label>
-                            <input type="text" name="sname" id="sname" value="<?php echo $correct_sname ?>">
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['surname'])) ? outgoing($input_error['surname']) : ' ';?></span>
-                            <span class="form__error"><?php echo $name_taken; ?></span>
-                        </div>
-                        <div class="box">
-                            <label for="email" class="left">E-mail</label>
-                            <input type="text" name="email" id="email" value="<?php echo $correct_email ?>">
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['email'])) ? outgoing($input_error['email']) : ' ';?></span>
-                            <span class="form__error"><?php echo $email_taken; ?></span>
-                        </div>
-                        <div class="box">
-                            <label for="username" class="left">Username</label>
-                            <input type="text" name="username" id="username" value="<?php echo $correct_uname; ?>">
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['username'])) ? outgoing($input_error['username']) : ' ';?></span>
-                            <span class="form__error"><?php echo $username_taken; ?></span>
-                        </div>
-                        <div class="box">
-                            <label for="password" class="left">Password</label>
-                            <input type="text" name="password" id="password">
-                            <br/>
-                            <span class="form__error"><?php echo (isset($input_error['password'])) ? outgoing($input_error['password']) : ' ';?></span>
-                        </div>
-                        <div>
-                        <input type="submit" name="submit" value="Create New User"> 
-                        </div>
-                    </fieldset>
-                </form>
-
+                <div class="register__form">
+                    <h2>New Staff Registration</h2> 
+                    <form action="<?php echo $self ?>" method="POST">
+                        <fieldset>
+                            <div class="error__field">
+                                <span class="form__error"><p><?php echo (!empty($input_error)) ? outgoing('*Please correct the hightlighted parts of the form') : ' ' ?></p></span>
+                                <span class="form__error"><p><?php echo (!empty($user_error)) ? outgoing('*The highlighted user information has already been registered') : ' ' ?></p></span>
+                                <span>
+                                <?php
+                                    if(parameters('message', 'error')) {
+                                        echo  '<p class= "highlight"> *System Error please try again later</p>';;
+                                    } 
+                                    if(parameters('message', 'registered')) {
+                                        echo '<h4>Thank you! New staff member has been successfully registered.</h4>';
+                                    } 
+                                ?>
+                                </span>
+                            </div>
+                            <div class="box">
+                                <label for="title" class="left">Title</label>
+                                <select name="title" id="title">
+                                    <option value="mr" <?php if($correct_ttl == 'mr') {echo ("selected");} ?>>Mr</option>
+                                    <option value="ms" <?php if($correct_ttl == 'ms') {echo ("selected");} ?>>Ms</option>
+                                    <option value="miss" <?php if($correct_ttl == 'miss') {echo ("selected");} ?>>Miss</option>
+                                    <option value="mrs" <?php if($correct_ttl == 'mrs') {echo ("selected"); }?>>Mrs</option>
+                                    <option value="dr" <?php if($correct_ttl == 'dr') {echo ("selected");} ?>>Dr</option>
+                                </select>
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['title'])) ? outgoing($input_error['title']) : ' ';?></span>
+                            </div>
+                            <div class="box">
+                                <label for="fname" class="left">Firstname</label>
+                                <input type="text" name="fname" id="fname" value="<?php echo $correct_fname ?>">
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['firstname'])) ? outgoing($input_error['firstname']) : ' ';?></span>
+                            </div>
+                            <div class="box">
+                                <label for="sname" class="left">Surname</label>
+                                <input type="text" name="sname" id="sname" value="<?php echo $correct_sname ?>">
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['surname'])) ? outgoing($input_error['surname']) : ' ';?></span>
+                                <span class="form__error"><?php echo $name_taken; ?></span>
+                            </div>
+                            <div class="box">
+                                <label for="email" class="left">E-mail</label>
+                                <input type="text" name="email" id="email" value="<?php echo $correct_email ?>">
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['email'])) ? outgoing($input_error['email']) : ' ';?></span>
+                                <span class="form__error"><?php echo $email_taken; ?></span>
+                            </div>
+                            <div class="box">
+                                <label for="username" class="left">Username</label>
+                                <input type="text" name="username" id="username" value="<?php echo $correct_uname; ?>">
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['username'])) ? outgoing($input_error['username']) : ' ';?></span>
+                                <span class="form__error"><?php echo $username_taken; ?></span>
+                            </div>
+                            <div class="box">
+                                <label for="password" class="left">Password</label>
+                                <input type="text" name="password" id="password">
+                                <br/>
+                                <span class="form__error"><?php echo (isset($input_error['password'])) ? outgoing($input_error['password']) : ' ';?></span>
+                            </div>
+                            <div>
+                            <input type="submit" name="submit" value="Create New User"> 
+                            </div>
+                        </fieldset>
+                    </form>
                 <?php
                 // closing else statement where errors are found
                 }
                 ?>
+                </div>
+                <div class="register__instruct">
+                    <ol>
+                        <li>All fields are mandatory when creating an account for a new faculty member</li>
+                        <li> The first and surname have to be at least two alphebetical characters long</li>
+                        <li>The username created will have to be at least 6 alphanumerical characters long, the username will be case sensitive </li>
+                        <li>The password will need to be at least 8 characters long and can include alphanumerical and special characters </li>
+                    </ol>
+                </div>
             </div>
         </div>
         <footer class="footer">
@@ -259,5 +270,7 @@ if($submitted_form === true && $error_found === false && $existing_user === fals
         ?>
         </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

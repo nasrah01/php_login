@@ -2,10 +2,7 @@
 session_start(); 
 require_once 'includes/logout.php';
 require_once 'includes/functions.php';
-/*
-    1) secure_links() will ensure the page is displayed as https:// this function is included in every php file appart from the includes files and staffing.php
-    2) includes/nav.php will only be displayed to a logged in user where a session has been started. 
- */
+
 secure_links();
 ?>
 <!DOCTYPE html>
@@ -19,9 +16,6 @@ secure_links();
     <title>Home - Department of Computer Science</title>
 </head>
 <body>
-    <script>
-        console.log(window.innerWidth + ", " + window.innerHeight);
-    </script>
     <div class="container">
         <header>
             <div class = "heading index__page--heading">
@@ -34,13 +28,13 @@ secure_links();
             </div>
         </header>
         <div class="main">
-            <div class="main__nav">
-                <?php
-                if(isset($_SESSION['user'])) {
-                    include 'includes/nav.php';
-                }
-                ?>
-            </div>
+            <?php
+            if(isset($_SESSION['user'])) {
+                echo '<div class="main__nav">';
+                include 'includes/nav.php';
+                echo '</div>';
+            }
+            ?>
             <div class="main__intro">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione suscipit dolorem magnam eos sed accusamus? Amet nobis omnis dolores nam, voluptas odio non excepturi a ex aperiam! Iusto, voluptatum ab.
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt labore quae, placeat saepe incidunt perspiciatis? Dicta pariatur exercitationem, nihil minus distinctio atque suscipit consectetur fuga placeat, sequi natus. Numquam, quaerat.
@@ -103,5 +97,7 @@ secure_links();
         ?>
         </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

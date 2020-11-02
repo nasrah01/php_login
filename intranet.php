@@ -1,10 +1,7 @@
 <?php
 session_start();
 require_once 'includes/functions.php';
-/*
-    1) check_access function restricts this page to be viewed only by logged in users, both staff memebers and admin login
-    2) secure_links ensures https protocol is set
-*/
+
 check_access($_SESSION['user'], 'login.php?intranet=login');
 secure_links();
 require_once 'includes/logout.php';
@@ -29,23 +26,24 @@ require_once 'includes/logout.php';
         </div>
         </header>
         <div class="main intranet__page">
-            <div class="main__nav">
-                <?php
+            <?php
+                if(isset($_SESSION['user'])) {
+                    echo '<div class="main__nav">';
                     include 'includes/nav.php';
-                ?>
-            </div>
-           
+                    echo '</div>';
+                }
+            ?>
             <div class="intranet__content">
                 <div class="main__intranet--list">
                     <p>DCSIS Home</p>
                     <ul>
-                        <li><a href="#">Systems Support</a></li>
-                        <li><a href="#">Student Support</a></li>
-                        <li><a href="#">Teaching</a></li>
-                        <li><a href="#">Assessment</a></li>
-                        <li><a href="#">Student Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Health and Safety</a></li>
+                        <li>Systems Support</li>
+                        <li>Student Support</li>
+                        <li>Teaching</li>
+                        <li>Assessment</li>
+                        <li>Student Projects</li>
+                        <li>Contact</li>
+                        <li>Health and Safety</li>
                     </ul>
                 </div>
                 <div class="main__intranet--text">
@@ -66,5 +64,7 @@ require_once 'includes/logout.php';
         ?>
         </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html

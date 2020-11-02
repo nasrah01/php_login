@@ -29,10 +29,13 @@ require_once 'includes/logout.php';
             </div>
         </header>
         <div class="main results__page">
-            <div class="main__nav">
-                <?php
+            <?php
+                if(isset($_SESSION['user'])) {
+                    echo '<div class="main__nav">';
                     include 'includes/nav.php';
-                ?>
+                    echo '</div>';
+                }
+            ?>
             </div>
             <div class="results__content">
                 <h2>Web Programming using PHP - P1 Results</h2>
@@ -110,5 +113,7 @@ require_once 'includes/logout.php';
         ?>
         </footer>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
